@@ -1,0 +1,20 @@
+{
+    "name": "bycedric/inquiry",
+    "description": "",
+    "authors": [
+        {
+            "name": "Cedric van Putten",
+            "email": "me@bycedric.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Bycedric\\Inquiry": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

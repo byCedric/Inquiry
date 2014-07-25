@@ -1,5 +1,6 @@
 <?php namespace Bycedric\Inquiry;
 
+use Bycedric\Inquiry\Factory;
 use Illuminate\Support\ServiceProvider;
 
 class InquiryServiceProvider extends ServiceProvider {
@@ -12,13 +13,29 @@ class InquiryServiceProvider extends ServiceProvider {
 	protected $defer = false;
 
 	/**
+	 * Boot the service provider.
+	 * 
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->package('bycedric/inquiry');
+	}
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
 	public function register()
 	{
-		//
+		$this->app['inquiry'] = $this->app->share(function( $app )
+		{
+			$symbols = $app['config']->get('inquiry::symbols');
+			$methods = $app['config']->get('inquiry::methods');
+
+			return new Factory($symbols, $methods);
+		});
 	}
 
 	/**
@@ -28,7 +45,7 @@ class InquiryServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return ['inquiry'];
 	}
 
 }

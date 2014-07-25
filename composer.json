@@ -1,6 +1,8 @@
 {
     "name": "bycedric/inquiry",
-    "description": "",
+    "description": "A Laravel URI syntax parser, designed for REST apis.",
+    "keywords": ["Laravel", "Peakfijn", "Restful", "API", "Rest"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Cedric van Putten",
@@ -9,7 +11,11 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/support": "~4.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.1",
+        "mockery/mockery": "~0.9"
     },
     "autoload": {
         "psr-0": {

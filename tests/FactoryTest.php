@@ -26,6 +26,28 @@ class FactoryTest extends TestCase {
 	}
 
 	/**
+	 * Test if the static syntax method returns a syntax value.
+	 * 
+	 * @return void
+	 */
+	public function testSyntaxReturnsValue()
+	{
+		Factory::$SYNTAX['symbols'] = ['equals' => '='];
+
+		$this->assertInternalType('string', Factory::syntax('symbols', 'equals'));
+	}
+
+	/**
+	 * Test if the static syntax method returns the default value if an unknown syntax is requested.
+	 * 
+	 * @return void
+	 */
+	public function testSyntaxReturnsDefaultWhenKeyIsNotDefined()
+	{
+		$this->assertSame('unknown', Factory::syntax('symbols', 'what??', 'unknown'));
+	}
+
+	/**
 	 * Test if the Factory's ->has function can return true.
 	 * 
 	 * @return void

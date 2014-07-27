@@ -1,6 +1,6 @@
 <?php namespace Bycedric\Inquiry\Queries;
 
-use Bycedric\Inquiry\Inquiry;
+use Bycedric\Inquiry\Factory;
 use Bycedric\Inquiry\Queries\Query;
 
 class RelationQuery extends Query {
@@ -28,7 +28,7 @@ class RelationQuery extends Query {
 	{
 		parent::__construct($string);
 		
-		list($relation, $value) = explode(Inquiry::SYMBOL_RELATION, $string);
+		list($relation, $value) = explode(Factory::syntax('symbols', 'relation', ':'), $string);
 	
 		$this->relation = $relation;
 		$this->value    = $value;
@@ -73,7 +73,7 @@ class RelationQuery extends Query {
 	 */
 	public static function validate( $string )
 	{
-		return !!strpos($string, Inquiry::SYMBOL_RELATION);
+		return !!strpos($string, Factory::syntax('symbols', 'relation', ':'));
 	}
 
 }

@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 class Factory {
 
 	/**
+	 * The syntax to use for the queries.
+	 * 
+	 * @var array
+	 */
+	public static $SYNTAX = [];
+
+	/**
 	 * The request to search into.
 	 * 
 	 * @var \Illuminate\Http\Request
@@ -13,14 +20,37 @@ class Factory {
 	protected $request;
 
 	/**
-	 * Set the basic syntax rules.
+	 * Set the request and basic syntax rules.
 	 * 
-	 * @param array $symbols
-	 * @param array $methods
+	 * @param \Illuminate\Http\Request $request
+	 * @param array $syntax (default: null)
 	 */
-	public function __construct( Request $request )
+	public function __construct( Request $request, array $syntax = null )
 	{
 		$this->request = $request;
+
+		if( !empty($syntax) && is_array($syntax) )
+		{
+			static::$SYNTAX = $syntax;
+		}
+	}
+
+	/**
+	 * Get a syntax value.
+	 * 
+	 * @param  string $type
+	 * @param  string $value
+	 * @param  mixed  $default (default: null)
+	 * @return string|null
+	 */
+	public static function syntax( $type, $value, $default = null )
+	{
+		if( array_key_exists($type, static::$SYNTAX) && array_key_exists($value, static::$SYNTAX[$type]) )
+		{
+			return static::$SYNTAX[$type][$value];
+		}
+
+		return $default;
 	}
 
 	/**

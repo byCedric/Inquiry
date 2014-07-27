@@ -1,6 +1,6 @@
 <?php namespace Bycedric\Inquiry\Queries;
 
-use Bycedric\Inquiry\Inquiry;
+use Bycedric\Inquiry\Factory;
 use Bycedric\Inquiry\Queries\Query;
 
 class OperatorQuery extends Query {
@@ -35,16 +35,23 @@ class OperatorQuery extends Query {
 	{
 		parent::__construct($string);
 
-		$this->operator = Inquiry::SYMBOL_EQUALS;
+		$this->operator = Factory::syntax('symbols', 'equals', '=');
 		$this->value    = $string;
 
-		if( in_array($string[0], [Inquiry::SYMBOL_EQUALS, Inquiry::SYMBOL_BIGGER, Inquiry::SYMBOL_SMALLER, Inquiry::SYMBOL_LIKE]) )
+		$operators = [
+			Factory::syntax('symbols', 'equals', '='),
+			Factory::syntax('symbols', 'bigger', ']'),
+			Factory::syntax('symbols', 'smaller', '['),
+			Factory::syntax('symbols', 'like', '~'),
+		];
+
+		if( in_array($string[0], $operators) )
 		{
 			$this->operator = $string[0];
 			$this->value    = substr($string, 1);
 		}
 
-		$this->method = $this->operator;
+		$this->method = Factory::syntax('methods', $this->operator, '');
 	}
 
 	/**
@@ -97,10 +104,10 @@ class OperatorQuery extends Query {
 	public static function validate( $string )
 	{
 		return !!in_array($string[0], [
-			Inquiry::SYMBOL_EQUALS,
-			Inquiry::SYMBOL_BIGGER,
-			Inquiry::SYMBOL_SMALLER,
-			Inquiry::SYMBOL_LIKE,
+			Factory::syntax('symbols', 'equals', '='),
+			Factory::syntax('symbols', 'bigger', ']'),
+			Factory::syntax('symbols', 'smaller', '['),
+			Factory::syntax('symbols', 'like', '~'),
 		]);
 	}
 

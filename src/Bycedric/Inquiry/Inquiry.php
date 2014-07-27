@@ -7,13 +7,6 @@ use Bycedric\Inquiry\Queries\RelationQuery;
 
 class Inquiry {
 
-	const SYMBOL_RELATION = ':';
-	const SYMBOL_ARRAY    = ',';
-	const SYMBOL_EQUALS   = '=';
-	const SYMBOL_LIKE     = '~';
-	const SYMBOL_BIGGER   = ']';
-	const SYMBOL_SMALLER  = '[';
-
 	/**
 	 * The name this query value was passed by.
 	 * 
@@ -36,8 +29,8 @@ class Inquiry {
 	 */
 	public function __construct( $key, $value = null )
 	{
-		$this->key   = $key;
-		$this->value = $value;
+		$this->key    = $key;
+		$this->value  = $value;
 	}
 
 	/**

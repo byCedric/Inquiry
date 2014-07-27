@@ -1,6 +1,6 @@
 <?php namespace Bycedric\Inquiry\Queries;
 
-use Bycedric\Inquiry\Inquiry;
+use Bycedric\Inquiry\Factory;
 use Bycedric\Inquiry\Queries\Query;
 
 class ArrayQuery extends Query {
@@ -16,7 +16,7 @@ class ArrayQuery extends Query {
 	 */
 	public static function make( $string )
 	{
-		return explode(Inquiry::SYMBOL_ARRAY, $string);
+		return explode(Factory::syntax('symbols', 'array', ','), $string);
 	}
 
 	/**
@@ -27,7 +27,7 @@ class ArrayQuery extends Query {
 	 */
 	public static function validate( $string )
 	{
-		return !!strpos($string, Inquiry::SYMBOL_ARRAY);
+		return !!strpos($string, Factory::syntax('symbols', 'array', ','));
 	}
 
 }

@@ -1,67 +1,124 @@
 <?php namespace Bycedric\Inquiry;
 
 use Bycedric\Inquiry\Factory;
+use Bycedric\Inquiry\Queries\ArrayQuery;
+use Bycedric\Inquiry\Queries\OperatorQuery;
+use Bycedric\Inquiry\Queries\RelationQuery;
 
 class Inquiry {
 
+	const SYMBOL_RELATION = ':';
+	const SYMBOL_ARRAY    = ',';
+	const SYMBOL_EQUALS   = '=';
+	const SYMBOL_LIKE     = '~';
+	const SYMBOL_BIGGER   = ']';
+	const SYMBOL_SMALLER  = '[';
+
 	/**
-	 * All entites are stored within this array.
+	 * The name this query value was passed by.
 	 * 
-	 * @var array
+	 * @var string
 	 */
-	protected $entities = [];
+	protected $key;
+
+	/**
+	 * The query value.
+	 * 
+	 * @var string
+	 */
+	protected $value;
 
 	/**
 	 * Pass the query to the instance.
 	 *
-	 * @param \Bycedric\Inquiry\Factory $factory
-	 * @param string $query
+	 * @param string $key
+	 * @param mixed  $value
 	 */
-	public function __construct( Factory $factory, $query )
+	public function __construct( $key, $value = null )
 	{
-		parse_str($query, $queries);
-
-		foreach( $queries as $name => $value )
-		{
-			$this->entities[$name] = new Entity($factory, $name, $value);
-		}
+		$this->key   = $key;
+		$this->value = $value;
 	}
 
 	/**
-	 * Get all entities.
+	 * When this object is used as a string, just output the value.
+	 * 
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * Create a duplicate Inquiry, where the key and value are switched.
+	 * Useful for decrypting complex names.
+	 * 
+	 * @return \Bycedroc\Inquiry\Inquiry
+	 */
+	public function swap()
+	{
+		return new static($this->value, $this->key);
+	}
+
+	/**
+	 * Check if the query contains an array statement.
+	 * 
+	 * @return bool
+	 */
+	public function hasArray()
+	{
+		return ArrayQuery::validate($this->value);
+	}
+
+	/**
+	 * Get the array value from the query.
 	 * 
 	 * @return array
 	 */
-	public function all()
+	public function getArray()
 	{
-		return array_values($this->entities);
+		return ArrayQuery::make($this->value);
 	}
 
 	/**
-	 * Check if the given key was set in the entities.
+	 * Check if the query contains a relation statement.
 	 * 
-	 * @param  string  $key
-	 * @return boolean
+	 * @return bool
 	 */
-	public function has( $key )
+	public function hasRelation()
 	{
-		return array_key_exists($key, $this->entities);
+		return RelationQuery::validate($this->value);
 	}
 
 	/**
-	 * Get the entity by the given key.
+	 * Get the relation data from the query.
 	 * 
-	 * @param  string $key
-	 * @return \Bycedric\Inquiry\Entity
+	 * @return \Bycedric\Inquiry\Queries\RelationQuery
 	 */
-	public function get( $key )
-	{	
-		if( $this->has($key) )
-		{
-			return $this->entities[$key];
-		}
+	public function getRelation()
+	{
+		return RelationQuery::make($this->value);
+	}
 
-		return $default;
+	/**
+	 * Check if the query contains an operator statement.
+	 * 
+	 * @return bool
+	 */
+	public function hasOperator()
+	{
+		return OperatorQuery::validate($this->value);
+	}
+
+	/**
+	 * Get the operator data from the query.
+	 * 
+	 * @return \Bycedric\Inquiry\Queries\OperatorQuery
+	 */
+	public function getOperator()
+	{
+		return OperatorQuery::make($this->value);
 	}
 
 }

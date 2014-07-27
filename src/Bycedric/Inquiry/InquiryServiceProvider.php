@@ -31,10 +31,10 @@ class InquiryServiceProvider extends ServiceProvider {
 	{
 		$this->app['inquiry'] = $this->app->share(function( $app )
 		{
-			$symbols = $app['config']->get('inquiry::symbols');
-			$methods = $app['config']->get('inquiry::methods');
+			// $symbols = $app['config']->get('inquiry::symbols');
+			// $methods = $app['config']->get('inquiry::methods');
 
-			return new Factory($symbols, $methods);
+			return new Factory($app['request']);
 		});
 	}
 

@@ -1,20 +1,16 @@
 <?php namespace Bycedric\Inquiry;
 
+use Bycedric\Inquiry\Inquiry;
+use Illuminate\Http\Request;
+
 class Factory {
 
 	/**
-	 * All symbols for the syntax.
-	 *  
-	 * @var array
-	 */
-	protected $symbols = [];
-
-	/**
-	 * All SQL operator methods.
+	 * The request to search into.
 	 * 
-	 * @var array
+	 * @var \Illuminate\Http\Request
 	 */
-	protected $methods = [];
+	protected $request;
 
 	/**
 	 * Set the basic syntax rules.
@@ -22,128 +18,94 @@ class Factory {
 	 * @param array $symbols
 	 * @param array $methods
 	 */
-	public function __construct( array $symbols, array $methods )
+	public function __construct( Request $request )
 	{
-		$this->symbols = $symbols;
-		$this->methods = $methods;
+		$this->request = $request;
 	}
 
 	/**
-	 * Parse the given input, and return a new Inquiry object.
+	 * Check if the given key is defined within the query.
 	 * 
-	 * @param  mixed $input
+	 * @param  string  $key
+	 * @return boolean
+	 */
+	public function has( $key )
+	{
+		return $this->request->has($key);
+	}
+
+	/**
+	 * Get a single query parameter from the request.
+	 * 
+	 * @param  string $key
+	 * @param  mixed  $default (default: null)
 	 * @return \Bycedric\Inquiry\Inquiry
 	 */
-	public function parse( $input )
+	public function get( $key, $default = null )
 	{
-		if( is_array($input) )
+		$value = $this->request->input($key, $default);
+
+		if( $value !== $default )
 		{
-			$input = http_build_query($input);
+			$value = new Inquiry($key, $value);
 		}
 
-		return new Inquiry($this, $input);
+		return $value;
 	}
 
 	/**
-	 * Get the symbols.
+	 * Get all query parameters from the request.
 	 * 
 	 * @return array
 	 */
-	public function getSymbols()
+	public function all()
 	{
-		return $this->symbols;
+		$queries = [];
+
+		foreach( $this->request->all() as $key => $value )
+		{
+			$queries[$key] = new Inquiry($key, $value);
+		}
+
+		return $queries;
 	}
 
 	/**
-	 * Get the methods.
-	 * 
+	 * Get only the given query parameters from the request.
+	 *
+	 * @param  array $keys
 	 * @return array
 	 */
-	public function getMethods()
+	public function only( $keys )
 	{
-		return $this->methods;
+		$keys    = is_array($keys)? $keys: func_get_args();
+		$queries = [];
+
+		foreach( $this->request->only($keys) as $key => $value )
+		{
+			$queries[$key] = new Inquiry($key, $value);
+		}
+
+		return $queries;
 	}
 
 	/**
-	 * Convert a string to camel case.
-	 *   > likeThis
-	 * 
-	 * @param  string $string
-	 * @return string
+	 * Get all query parameters, without the given parameters from the request.
+	 *
+	 * @param  array $keys
+	 * @return array
 	 */
-	public function camelCase( $string )
+	public function except( $keys )
 	{
-		return camel_case($string);
-	}
+		$keys    = is_array($keys)? $keys: func_get_args();
+		$queries = [];
 
-	/**
-	 * Convert a string to snake case.
-	 *   > like_this
-	 * 
-	 * @param  string $string
-	 * @return string
-	 */
-	public function snakeCase( $string )
-	{
-		return str_replace('-', '_', snake_case($string));
-	}
+		foreach( $this->request->except($keys) as $key => $value )
+		{
+			$queries[$key] = new Inquiry($key, $value);
+		}
 
-	/**
-	 * Convert a string to slug case.
-	 *   > like-this
-	 * 
-	 * @param  string $string
-	 * @return string
-	 */
-	public function slugCase( $string )
-	{
-		return str_replace('_', '-', snake_case($string));
-	}
-
-	/**
-	 * Transform the given string to lower case only.
-	 * 
-	 * @param  string $string
-	 * @return string
-	 */
-	public function lowerCase( $string )
-	{
-		return strtolower($string);
-	}
-
-	/**
-	 * Transform the given string to upper case only.
-	 * 
-	 * @param  string $string
-	 * @return string
-	 */
-	public function upperCase( $string )
-	{
-		return strtoupper($string);
-	}
-
-	/**
-	 * Convert the string to plural.
-	 * Unfortunately it's only english...
-	 * 
-	 * @param  string $value
-	 * @return string
-	 */
-	public function plural( $value )
-	{
-		return str_plural($value);
-	}
-
-	/**
-	 * Convert the string to singular.
-	 * Unfortunately it's only english...
-	 * 
-	 * @param  string $value
-	 * @return string
-	 */
-	public function singular( $value )
-	{
-		return str_singular($value);
+		return $queries;
 	}
 
 }

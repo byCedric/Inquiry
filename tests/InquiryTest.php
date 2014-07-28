@@ -41,7 +41,7 @@ class InquiryTest extends TestCase {
 	{
 		$query = new Inquiry('key', 'value');
 
-		$this->assertSame('key', $this->getKey());
+		$this->assertSame('key', $query->getKey());
 	}
 
 	/**

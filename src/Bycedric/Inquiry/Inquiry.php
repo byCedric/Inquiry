@@ -44,23 +44,23 @@ class Inquiry {
 	}
 
 	/**
-	 * Get the value of this inquiry.
-	 * 
-	 * @return string
-	 */
-	public function getValue()
-	{
-		return $this->value;
-	}
-
-	/**
-	 * Get the key of this inquiry.
+	 * Get the key of the Inquiry.
 	 * 
 	 * @return string
 	 */
 	public function getKey()
 	{
 		return $this->key;
+	}
+
+	/**
+	 * Get the value of the Inquiry.
+	 * 
+	 * @return string
+	 */
+	public function getValue()
+	{
+		return $this->value;
 	}
 
 	/**

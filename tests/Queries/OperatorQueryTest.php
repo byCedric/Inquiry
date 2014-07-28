@@ -38,18 +38,6 @@ class OperatorQueryTest extends QueryTestCase {
 	}
 
 	/**
-	 * Test if the getMethod function returns nothing when an unknown operator is passed.
-	 * 
-	 * @return void
-	 */
-	public function testGetMethodReturnsNullWhenUnknownOperatorIsPassed()
-	{
-		$query = OperatorQuery::make('>value');
-		
-		$this->assertNull($query->getMethod);
-	}
-
-	/**
 	 * Each Query object should be generatable from the ::make function.
 	 * 
 	 * @return void

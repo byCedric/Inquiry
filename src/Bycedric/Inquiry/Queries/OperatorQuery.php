@@ -62,11 +62,6 @@ class OperatorQuery extends Query {
 	 */
 	protected function getMethodFromOperator( $operator )
 	{
-		if( $operator == Factory::syntax('symbols', 'equals', '=') )
-		{
-			return Factory::syntax('methods', $operator, '=');
-		}
-		
 		if( $operator == Factory::syntax('symbols', 'bigger', ']') )
 		{
 			return Factory::syntax('methods', $operator, '>');
@@ -81,6 +76,8 @@ class OperatorQuery extends Query {
 		{
 			return Factory::syntax('methods', $operator, 'LIKE');
 		}
+
+		return Factory::syntax('methods', $operator, '=');
 	}
 
 	/**

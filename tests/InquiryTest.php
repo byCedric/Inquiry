@@ -21,6 +21,30 @@ class InquiryTest extends TestCase {
 	}
 
 	/**
+	 * Test if the getValue function returns the actual value.
+	 * 
+	 * @return void
+	 */
+	public function testGetValueReturnsValue()
+	{
+		$query = new Inquiry('key', 'value');
+
+		$this->assertSame('value', $query->getValue());
+	}
+
+	/**
+	 * Test if the getKey function returns the actual value.
+	 * 
+	 * @return void
+	 */
+	public function testGetKeyReturnsKey()
+	{
+		$query = new Inquiry('key', 'value');
+
+		$this->assertSame('key', $this->getKey());
+	}
+
+	/**
 	 * Test if a new instance is created when swapping the values.
 	 * 
 	 * @return void

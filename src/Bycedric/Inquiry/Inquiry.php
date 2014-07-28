@@ -44,6 +44,26 @@ class Inquiry {
 	}
 
 	/**
+	 * Get the value of this inquiry.
+	 * 
+	 * @return string
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * Get the key of this inquiry.
+	 * 
+	 * @return string
+	 */
+	public function getKey()
+	{
+		return $this->key;
+	}
+
+	/**
 	 * Create a duplicate Inquiry, where the key and value are switched.
 	 * Useful for decrypting complex names.
 	 * 

@@ -39,7 +39,7 @@ class RelationQuery extends Query {
 	 * 
 	 * @return string
 	 */
-	public function getRelation()
+	public function getRelated()
 	{
 		return $this->relation;
 	}

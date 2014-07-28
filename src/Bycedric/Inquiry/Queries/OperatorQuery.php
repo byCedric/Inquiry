@@ -129,7 +129,7 @@ class OperatorQuery extends Query {
 	 */
 	public static function validate( $string )
 	{
-		return !!(ctype_alnum($string[0]) || in_array($string[0], [
+		return !!(ctype_alnum((string) $string[0]) || in_array((string) $string[0], [
 			Factory::syntax('symbols', 'equals', '='),
 			Factory::syntax('symbols', 'bigger', ']'),
 			Factory::syntax('symbols', 'smaller', '['),

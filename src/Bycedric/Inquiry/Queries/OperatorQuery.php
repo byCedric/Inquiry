@@ -43,6 +43,7 @@ class OperatorQuery extends Query {
 			Factory::syntax('symbols', 'bigger', ']'),
 			Factory::syntax('symbols', 'smaller', '['),
 			Factory::syntax('symbols', 'like', '~'),
+			Factory::syntax('symbols', 'not', '!'),
 		];
 
 		if( in_array($string[0], $operators) )
@@ -75,6 +76,11 @@ class OperatorQuery extends Query {
 		if( $operator == Factory::syntax('symbols', 'like', '~') )
 		{
 			return Factory::syntax('methods', $operator, 'LIKE');
+		}
+
+		if( $operator == Factory::syntax('symbols', 'not', '!') )
+		{
+			return Factory::syntax('methods', $operator, '<>');
 		}
 
 		return Factory::syntax('methods', $operator, '=');
@@ -136,6 +142,7 @@ class OperatorQuery extends Query {
 			Factory::syntax('symbols', 'bigger', ']'),
 			Factory::syntax('symbols', 'smaller', '['),
 			Factory::syntax('symbols', 'like', '~'),
+			Factory::syntax('symbols', 'not', '!'),
 		]));
 	}
 

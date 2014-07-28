@@ -129,12 +129,12 @@ class OperatorQuery extends Query {
 	 */
 	public static function validate( $string )
 	{
-		return !!in_array($string[0], [
+		return !!(ctype_alpha($string[0]) || in_array($string[0], [
 			Factory::syntax('symbols', 'equals', '='),
 			Factory::syntax('symbols', 'bigger', ']'),
 			Factory::syntax('symbols', 'smaller', '['),
 			Factory::syntax('symbols', 'like', '~'),
-		]);
+		]));
 	}
 
 }

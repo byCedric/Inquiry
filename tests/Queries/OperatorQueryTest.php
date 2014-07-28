@@ -25,6 +25,16 @@ class OperatorQueryTest extends QueryTestCase {
 	}
 
 	/**
+	 * Test if no operator is still valid.
+	 * 
+	 * @return void
+	 */
+	public function testNoOperatorIsValid()
+	{
+		$this->assertTrue(OperatorQuery::validate('valid'));
+	}
+
+	/**
 	 * Check if the getMethodFromOperator acutally returns anything.
 	 * 
 	 * @return void
@@ -84,6 +94,18 @@ class OperatorQueryTest extends QueryTestCase {
 		$query = OperatorQuery::make('=value');
 
 		$this->assertSame('value', $query->getValue());
+	}
+
+	/**
+	 * Test if the defualt operator is equals, when no operator was supplied.
+	 * 
+	 * @return void
+	 */
+	public function testOperatorIsDefaultEquals()
+	{
+		$query = OperatorQuery::make('value');
+
+		$this->assertSame('=', $query->getOperator());
 	}
 
 }

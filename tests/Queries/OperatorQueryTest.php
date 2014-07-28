@@ -25,6 +25,18 @@ class OperatorQueryTest extends QueryTestCase {
 	}
 
 	/**
+	 * Check if the getMethodFromOperator acutally returns anything.
+	 * 
+	 * @return void
+	 */
+	public function testGetMethodFromOperatorReturnsValue()
+	{
+		$query = OperatorQuery::make('=value');
+
+		$this->assertInternalType('string', $this->invokeMethod($query, 'getMethodFromOperator', ['=']));
+	}
+
+	/**
 	 * Each Query object should be generatable from the ::make function.
 	 * 
 	 * @return void

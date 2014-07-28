@@ -51,7 +51,24 @@ class OperatorQuery extends Query {
 			$this->value    = substr($string, 1);
 		}
 
-		$this->method = Factory::syntax('methods', $this->operator, '');
+		$this->method = $this->getMethodFromOperator($this->operator);
+	}
+
+	/**
+	 * Get the method name from the operator.
+	 * 
+	 * @param  string $operator 
+	 * @return string
+	 */
+	protected function getMethodFromOperator( $operator )
+	{
+		switch( $operator )
+		{
+			case ']': return Factory::syntax('methods', $operator, '>');
+			case '[': return Factory::syntax('methods', $operator, '<');
+			case '~': return Factory::syntax('methods', $operator, 'LIKE');
+			case '=': default: return Factory::syntax('methods', $operator, '=');
+		}
 	}
 
 	/**

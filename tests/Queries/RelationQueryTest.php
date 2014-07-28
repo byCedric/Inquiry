@@ -49,6 +49,11 @@ class RelationQueryTest extends QueryTestCase {
 		$this->assertSame('relation', $query->getRelated());
 	}
 
+	/**
+	 * Test if the value is available.
+	 * 
+	 * @return void
+	 */
 	public function testValueIsAvailable()
 	{
 		$query = RelationQuery::make('relation:value');

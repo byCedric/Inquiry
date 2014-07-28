@@ -31,9 +31,10 @@ class OperatorQueryTest extends QueryTestCase {
 	 */
 	public function testGetMethodFromOperatorReturnsValue()
 	{
-		$query = OperatorQuery::make('=value');
+		$query  = OperatorQuery::make(']value');
+		$method = $this->invokeMethod($query, 'getMethodFromOperator', [']']);
 
-		$this->assertInternalType('string', $this->invokeMethod($query, 'getMethodFromOperator', ['=']));
+		$this->assertSame('>', $method);
 	}
 
 	/**

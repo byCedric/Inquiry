@@ -62,13 +62,22 @@ class OperatorQuery extends Query {
 	 */
 	protected function getMethodFromOperator( $operator )
 	{
-		switch( $operator )
+		if( $operator == Factory::syntax('symbols', 'bigger', ']') )
 		{
-			case ']': return Factory::syntax('methods', $operator, '>');
-			case '[': return Factory::syntax('methods', $operator, '<');
-			case '~': return Factory::syntax('methods', $operator, 'LIKE');
-			case '=': default: return Factory::syntax('methods', $operator, '=');
+			return Factory::syntax('methods', $operator, '>');
 		}
+
+		if( $operator == Factory::syntax('symbols', 'smaller', '[') )
+		{
+			return Factory::syntax('methods', $operator, '<');
+		}
+
+		if( $operator == Factory::syntax('symbols', 'like', '~') )
+		{
+			return Factory::syntax('methods', $operator, 'LIKE');
+		}
+
+		return Factory::syntax('methods', $operator, '=');
 	}
 
 	/**

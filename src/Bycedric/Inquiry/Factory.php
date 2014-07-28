@@ -54,6 +54,18 @@ class Factory {
 	}
 
 	/**
+	 * Create an inquiry object with custom values.
+	 * 
+	 * @param  string $key   [description]
+	 * @param  string $value [description]
+	 * @return \Bycedric\Inquiry\Inquiry
+	 */
+	public function make( $key, $value )
+	{
+		return new Inquiry($key, $value);
+	}
+
+	/**
 	 * Check if the given key is defined within the query.
 	 * 
 	 * @param  string  $key

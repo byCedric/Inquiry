@@ -48,6 +48,21 @@ class FactoryTest extends TestCase {
 	}
 
 	/**
+	 * Test if the make function returns a new Inquiry object.
+	 * 
+	 * @return void
+	 */
+	public function testMakeReturnsInquiryObject()
+	{
+		$factory = $this->getFactory($this->getRequest());
+		$inquiry = $factory->make('key', 'value');
+
+		$this->assertInstanceOf('\Bycedric\Inquiry\Inquiry', $inquiry);
+		$this->assertSame('key', $inquiry->getKey());
+		$this->assertSame('value', $inquiry->getValue());
+	}
+
+	/**
 	 * Test if the Factory's ->has function can return true.
 	 * 
 	 * @return void

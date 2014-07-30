@@ -113,6 +113,9 @@ class OperatorQuery extends Query {
 	 */
 	public function getValue()
 	{
+		if( $this->value == Factory::syntax('symbols', 'null', '-') )
+			return null;
+
 		return $this->value;
 	}
 	
@@ -136,8 +139,11 @@ class OperatorQuery extends Query {
 	public static function validate( $string )
 	{
 		$string = (string) $string;
+		$null   = Factory::syntax('symbols', 'null', '-');
 
-		return !!(ctype_alnum($string[0]) || in_array($string[0], [
+		if( empty($string) ) return false;
+
+		return !!($string == $null || ctype_alnum($string[0]) || in_array($string[0], [
 			Factory::syntax('symbols', 'equals', '='),
 			Factory::syntax('symbols', 'bigger', ']'),
 			Factory::syntax('symbols', 'smaller', '['),

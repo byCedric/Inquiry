@@ -85,7 +85,7 @@ class OperatorQueryTest extends QueryTestCase {
 	}
 
 	/**
-	 * Test if the value is is available
+	 * Test if the value is available
 	 * 
 	 * @return void
 	 */
@@ -94,6 +94,18 @@ class OperatorQueryTest extends QueryTestCase {
 		$query = OperatorQuery::make('=value');
 
 		$this->assertSame('value', $query->getValue());
+	}
+
+	/**
+	 * Test if the value can be NULL
+	 * 
+	 * @return void
+	 */
+	public function testValueCanBeNull()
+	{
+		$query = OperatorQuery::make('-');
+
+		$this->assertNull($query->getValue());
 	}
 
 	/**

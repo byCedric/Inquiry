@@ -20,6 +20,7 @@ return array(
 		'smaller'  => '[',
 		'like'     => '~',
 		'not'      => '!',
+		'null'     => '-',
 	),
 
 	/*

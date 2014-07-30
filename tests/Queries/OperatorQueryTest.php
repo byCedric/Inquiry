@@ -109,6 +109,30 @@ class OperatorQueryTest extends QueryTestCase {
 	}
 
 	/**
+	 * Test if ->isNot returns true when not symbol was provided.
+	 * 
+	 * @return void
+	 */
+	public function testIsNotDetectsNotSymbol()
+	{
+		$query = OperatorQuery::make('!value');
+
+		$this->assertTrue($query->isNot());
+	}
+
+	/**
+	 * Test if ->isNot returns false when no not symbol was provided.
+	 * 
+	 * @return void
+	 */
+	public function testIsNotDetectsNotSymbolAndReturnsFalseWhenNotProvided()
+	{
+		$query = OperatorQuery::make('=value');
+
+		$this->assertFalse($query->isNot());
+	}
+
+	/**
 	 * Test if the defualt operator is equals, when no operator was supplied.
 	 * 
 	 * @return void

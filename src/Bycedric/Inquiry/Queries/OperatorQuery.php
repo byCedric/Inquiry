@@ -118,6 +118,16 @@ class OperatorQuery extends Query {
 
 		return $this->value;
 	}
+
+	/**
+	 * Check if the operator 'not' was provided.
+	 * 
+	 * @return boolean
+	 */
+	public function isNot()
+	{
+		return $this->getOperator() == Factory::syntax('symbols', 'not', '!');
+	}
 	
 	/**
 	 * Make a operator query from the given string.

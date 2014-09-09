@@ -4,6 +4,7 @@ use Bycedric\Inquiry\Factory;
 use Bycedric\Inquiry\Queries\ArrayQuery;
 use Bycedric\Inquiry\Queries\OperatorQuery;
 use Bycedric\Inquiry\Queries\RelationQuery;
+use Bycedric\Inquiry\Queries\RangeQuery;
 
 class Inquiry {
 

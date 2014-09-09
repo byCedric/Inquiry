@@ -134,4 +134,24 @@ class Inquiry {
 		return OperatorQuery::make($this->value);
 	}
 
+	/**
+	 * Check if the query contains an range statement.
+	 * 
+	 * @return bool
+	 */
+	public function hasRange()
+	{
+		return RangeQuery::validate($this->value);
+	}
+
+	/**
+	 * Get the range data from the query.
+	 * 
+	 * @return \Bycedric\Inquiry\Queries\RangeQuery
+	 */
+	public function getRange()
+	{
+		return RangeQuery::make($this->value);
+	}
+
 }

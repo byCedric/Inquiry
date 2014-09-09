@@ -21,6 +21,7 @@ return array(
 		'like'     => '~',
 		'not'      => '!',
 		'null'     => '-',
+		'delim'    => '|',
 	),
 
 	/*

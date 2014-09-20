@@ -1,0 +1,26 @@
+# Inquiry 
+A customizable URI syntax parser.
+Designed to get the most out of web applications.
+
+## Operators
+All operators are defined within the value, as first character.
+These are all customizable, making it very adaptable for your project.
+
+When no operator was found, a default operator is being used.
+Because of the traditional key = value statement used within the URI syntax, the default operator is **=**.
+Therefore the statement `type=item` is understood as `type==item`.
+
+A normal statement like `type equals item` is notated as `type==item`.
+Another more advanced statement like `priority is bigger than 3` is written as `priority=]3`.
+Also arrays are supported and should be written like `persons=alex,cedric,ibrahim,willem,wouter`.
+
+
+## Supported operators
+All following operators are supported and the provided character is used as default.
+
+- **=** key _equals_ value
+- **~** key _is something like_ value
+- **[** key _is smaller than_ value
+- **]** key _is bigger than_ value
+- **!** key _not equals_ value 
+- **,** key _is an array containing following values_ value,value,value
